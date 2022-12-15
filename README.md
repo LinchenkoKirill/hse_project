@@ -11,7 +11,7 @@ sql
 <img src="https://github.com/LinchenkoKirill/hse_project/raw/main/assets/public.png" width="700">
 
 
-## Зпросы
+## Запросы
 ### 1) Самые популярные товары в ценовом диапазоне
 ```sql
 SELECT p.id,
