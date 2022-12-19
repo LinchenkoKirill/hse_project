@@ -127,3 +127,26 @@ LIMIT 5;
 |70 |Casework                     |25511.5  |
 |73 |Elevator                     |28559    |
 
+
+### 6) Какую категорию товара чаще всего заказывают с 1 по 10 января
+```sql
+SELECT o2p.id,
+       o.payment_time,
+       o2p.amount,
+       o2p.product_id
+FROM orders2product o2p
+    INNER JOIN orders o ON o.id = o2p.order_id
+WHERE payment_time between '2022-01-01' AND '2022-01-10'
+GROUP BY o2p.id, o.payment_time
+ORDER BY max(amount)    DESC
+LIMIT 5;
+```
+### Результат
+|id |name                         |avg_price|
+|---|-----------------------------|---------|
+|291|2022-01-04 00:53:39.000000   |20828    |
+|9  |2022-01-04 00:53:39.000000   |22689    |
+|381|2022-01-07 15:56:55.000000   |22844    |
+|366|2022-01-04 00:53:39.000000   |25511.5  |
+|395|2022-01-07 15:56:55.000000   |28559    |
+
