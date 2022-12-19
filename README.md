@@ -8,7 +8,7 @@ sql
 * Границын Михаил
 
 ## Схема бд
-<img src="https://github.com/LinchenkoKirill/hse_project/raw/main/assets/public.png" width="700">
+<img src="https://github.com/LinchenkoKirill/hse_project/raw/main/assets/category.png" width="700">
 
 
 ## Запросы
