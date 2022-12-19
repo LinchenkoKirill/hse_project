@@ -142,11 +142,33 @@ ORDER BY max(amount)    DESC
 LIMIT 5;
 ```
 ### Результат
-|id |name                         |avg_price|
-|---|-----------------------------|---------|
-|291|2022-01-04 00:53:39.000000   |20828    |
-|9  |2022-01-04 00:53:39.000000   |22689    |
-|381|2022-01-07 15:56:55.000000   |22844    |
-|366|2022-01-04 00:53:39.000000   |25511.5  |
-|395|2022-01-07 15:56:55.000000   |28559    |
+|id |payment_time                 |amount   |product_id|
+|---|-----------------------------|---------|----------|
+|291|2022-01-04 00:53:39.000000   |5        |210       |
+|9  |2022-01-04 00:53:39.000000   |5        |191       |
+|381|2022-01-07 15:56:55.000000   |4        |158       |
+|366|2022-01-04 00:53:39.000000   |4        |168       |
+|395|2022-01-07 15:56:55.000000   |4        |65        |
+
+
+### 7) В какое время чаще всего пользователи заказывают
+```sql
+SELECT count(payment_time) as cnt,
+       CASE
+           WHEN date_part('hour', payment_time::TIMESTAMP) >= 0 and date_part('hour', payment_time::TIMESTAMP) < 6 THEN 1
+            WHEN date_part('hour', payment_time::TIMESTAMP) >= 6 and date_part('hour', payment_time::TIMESTAMP) < 12 THEN 2
+            WHEN date_part('hour', payment_time::TIMESTAMP) >= 12 and date_part('hour', payment_time::TIMESTAMP) < 18 THEN 3
+            WHEN date_part('hour', payment_time::TIMESTAMP) >= 18 and date_part('hour', payment_time::TIMESTAMP) <= 23 THEN 4
+        END as quarter
+FROM orders
+GROUP BY quarter
+ORDER BY cnt   DESC;
+```
+### Результат
+|cnt|quarter|
+|---|---|
+|291|2  |
+|9  |3  |
+|381|4  |
+|366|1  |
 
