@@ -166,9 +166,38 @@ ORDER BY cnt   DESC;
 ```
 ### Результат
 |cnt|quarter|
-|---|---|
-|19 |2  |
-|17 |3  |
-|14 |4  |
-|10 |1  |
+|---|-------|
+|19 |2      |
+|17 |3      |
+|14 |4      |
+|10 |1      |
+
+
+### 8) В какой месяц меньше всего регистраций
+```sql
+SELECT count(registration_time) as cnt_regist,
+       CASE
+           WHEN date_part('month', registration_time::TIMESTAMP) = 1 THEN 1
+           WHEN date_part('month', registration_time::TIMESTAMP) = 2 THEN 2
+           WHEN date_part('month', registration_time::TIMESTAMP) = 3 THEN 3
+           WHEN date_part('month', registration_time::TIMESTAMP) = 4 THEN 4
+           WHEN date_part('month', registration_time::TIMESTAMP) = 5 THEN 5
+           WHEN date_part('month', registration_time::TIMESTAMP) = 6 THEN 6
+           WHEN date_part('month', registration_time::TIMESTAMP) = 7 THEN 7
+           WHEN date_part('month', registration_time::TIMESTAMP) = 8 THEN 8
+           WHEN date_part('month', registration_time::TIMESTAMP) = 9 THEN 9
+           WHEN date_part('month', registration_time::TIMESTAMP) = 10 THEN 10
+           WHEN date_part('month', registration_time::TIMESTAMP) = 11 THEN 11
+           WHEN date_part('month', registration_time::TIMESTAMP) = 12 THEN 12
+        END as month
+FROM users
+GROUP BY month
+ORDER BY cnt_regist
+LIMIT 1 ;
+```
+### Результат
+|cnt_regist|month|
+|----------|-----|
+|5         |6    |
+
 
