@@ -127,8 +127,26 @@ LIMIT 5;
 |70 |Casework                     |25511.5  |
 |73 |Elevator                     |28559    |
 
+### 6) Количество какого товара изменилось после доставки
+```sql
+SELECT p.id, p.name, sum(pi.count + p.count)
+FROM product_income pi
+    INNER JOIN product p on p.id = pi.product_id
+GROUP BY p.id
+ORDER BY max(p.count) DESC
+LIMIT 5;
+```
+### Результат
+|id |name                         |sum|
+|---|-----------------------------|---|
+|289|Soup - French Onion          |123|
+|300|Jack Daniels                 |70 |
+|9  |Sugar - Icing                |57 |
+|112|Pasta - Fusili Tri - Coloured|51 |
+|290|Cheese - Goat With Herbs     |30 |
 
-### 6) Какую категорию товара чаще всего заказывают с 1 по 10 января
+
+### 7) Какую категорию товара чаще всего заказывают с 1 по 10 января
 ```sql
 SELECT o2p.id,
        o.payment_time,
@@ -151,7 +169,7 @@ LIMIT 5;
 |395|2022-01-07 15:56:55.000000   |4        |65        |
 
 
-### 7) В какое время чаще всего пользователи заказывают
+### 8) В какое время чаще всего пользователи заказывают
 ```sql
 SELECT count(payment_time) as cnt,
        CASE
@@ -173,7 +191,7 @@ ORDER BY cnt   DESC;
 |10 |1      |
 
 
-### 8) В какой месяц меньше всего регистраций
+### 9) В какой месяц меньше всего регистраций
 ```sql
 SELECT count(registration_time) as cnt_regist,
        CASE
@@ -199,5 +217,8 @@ LIMIT 1 ;
 |cnt_regist|month|
 |----------|-----|
 |5         |6    |
+
+
+
 
 
